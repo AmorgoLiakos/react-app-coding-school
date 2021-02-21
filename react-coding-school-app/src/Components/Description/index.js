@@ -1,8 +1,9 @@
 import React from "react"
+import "./desc.css"
 
 class Likebox extends React.Component {
   render() {
-    return <h2>Hello from Likebox</h2>
+    return <p>Description goes here</p>
   }
 }
 
