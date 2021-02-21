@@ -33,6 +33,10 @@ const CartItem = props => {
       <div className="total-price">
         <h3>{quantity * props.price}</h3>
       </div>
+
+      <div className="delete-button">
+        <button onClick={props.handleDelete}> X </button>
+      </div>
     </div>
   )
 }
