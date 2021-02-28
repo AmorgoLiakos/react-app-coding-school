@@ -41,7 +41,7 @@ function App() {
 
   const [cartStatus, setCartStatus] = useState(() => {
     let initialObject = {}
-    CartItems.forEach(product => {
+    initialState.forEach(product => {
       initialObject[product.id] = {
         quantity: 1,
         price: product.price
