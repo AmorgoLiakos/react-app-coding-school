@@ -3,12 +3,12 @@ import "./App.css"
 import CartItem from "./Components/CartItem"
 
 /**
- * It is better to have this as a variable 
+ * It is better to have this as a variable
  * so you can decide to either imported from external file/service
- * or reset back to the original 
+ * or reset back to the original
  * */
 
- const initialState = [
+const initialState = [
   {
     id: 1,
     title: "cart item one",
@@ -37,13 +37,14 @@ import CartItem from "./Components/CartItem"
 
 function App() {
   const [CartItems, setCartItems] = useState(initialState)
-  // ⚡️[Improvement] Lazy initial state 
-  const [cartStatus, setCartStatus] = useState(()=>{
+  // ⚡️[Improvement] Lazy initial state
+
+  const [cartStatus, setCartStatus] = useState(() => {
     let initialObject = {}
-    initialState.forEach(product => {
-      initialObject[product.id]={
-        quantity:1,
-        price:product.price
+    CartItems.forEach(product => {
+      initialObject[product.id] = {
+        quantity: 1,
+        price: product.price
       }
     })
     return initialObject
@@ -54,61 +55,63 @@ function App() {
 
   /**
    * 💣[BUG] Can you spot it?
-   * 
+   *
    */
 
   useEffect(() => {
-    console.log('%c[Update] App useEffect 🔁', 'color: aqua');
+    console.log("%c[Update] App useEffect 🔁", "color: aqua")
 
     let total = 0
     for (const item in cartStatus) {
       total += cartStatus[item].quantity * cartStatus[item].price
     }
     setTotalPrice(total)
-   
-  }, [cartStatus]) // I want to monitor changes in the cartStatus and ....
+  }, [cartStatus, CartItems]) // I want to monitor changes in the cartStatus and ....
 
-  /**
-   * 💣[BUG] Can you spot it?
-   * 
-   */
   const handleDelete = x => {
-    setCartItems(CartItems.filter(item => item.id != x))
+    setCartItems(CartItems => {
+      let newCart = [...CartItems]
+      let itemToDelete = newCart.find(item => item.id == x)
+      itemToDelete.quantity = 0
+      let indexToDelete = newCart.indexOf(itemToDelete)
+      newCart.splice(indexToDelete, 1)
+      return newCart
+    })
   }
 
-  const handleQuantityChange = ({id, quantity}) => {
+  const handleQuantityChange = ({ id, quantity }) => {
     setCartStatus(prevValue => ({
       ...prevValue,
-      [id]:{
+      [id]: {
         quantity,
-        price:prevValue[id].price
-        }
+        price: prevValue[id].price
+      }
     }))
   }
 
-  //⚡️[Improvement] 
+  //⚡️[Improvement]
   //💡 in the map the first argument is the current object from the array
   // and the second is the index where the object is located
   // maybe you can improve the code
   return (
     <div>
-    {CartItems.map(
-      (x, index) => 
-      <CartItem 
-        key={CartItems[index].id} 
-        id={CartItems[index].id} 
-        title={CartItems[index].title} 
-        description={CartItems[index].description} 
-        price={CartItems[index].price} 
-        //No need to create here the arrow function just pass it and let the component use it
-        //handleDelete={() => handleDelete(CartItems[index].id)} />
-        handleDelete={handleDelete}
-        handleQuantityChange={handleQuantityChange}
-        cartStatus={cartStatus}
+      {CartItems.map((x, index) => (
+        <CartItem
+          key={CartItems[index].id}
+          id={CartItems[index].id}
+          title={CartItems[index].title}
+          description={CartItems[index].description}
+          price={CartItems[index].price}
+          //No need to create here the arrow function just pass it and let the component use it
+          //handleDelete={() => handleDelete(CartItems[index].id)} />
+          handleDelete={handleDelete}
+          handleQuantityChange={handleQuantityChange}
+          cartStatus={cartStatus}
         />
-        )}
-        <div>Total Price: {totalPrice} </div>
-    </div>)
+      ))}
+      <div>Total Price: {totalPrice} </div>
+    </div>
+  )
 }
 
 export default App
