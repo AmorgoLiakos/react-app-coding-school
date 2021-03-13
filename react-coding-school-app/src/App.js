@@ -41,7 +41,7 @@ function App() {
           <Grid item xs={12} sm={3}>
             <Box boxShadow={3}>
               <Card>
-                <Typography align="center">
+                <Typography component="div" align="center">
                   <CardHeader title="Labrador Retriever"></CardHeader>
                 </Typography>
                 <Typography align="center">500</Typography>
