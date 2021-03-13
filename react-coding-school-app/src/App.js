@@ -1,116 +1,71 @@
-import { useState, useEffect } from "react"
+import Grid from "@material-ui/core/Grid"
+import Container from "@material-ui/core/Container"
+import Card from "@material-ui/core/Card"
+import CardMedia from "@material-ui/core/CardMedia"
+import CardHeader from "@material-ui/core/CardHeader"
+import CardContent from "@material-ui/core/CardContent"
+import Button from "@material-ui/core/Button"
+import Typography from "@material-ui/core/Typography"
+import Box from "@material-ui/core/Box"
+
+import AppBar from "@material-ui/core/AppBar"
+import Toolbar from "@material-ui/core/Toolbar"
+import MenuItem from "@material-ui/core/MenuItem"
+import HomeSharpIcon from "@material-ui/icons/HomeSharp"
+import ShoppingCartSharpIcon from "@material-ui/icons/ShoppingCartSharp"
+
 import "./App.css"
-import CartItem from "./Components/CartItem"
-
-/**
- * It is better to have this as a variable
- * so you can decide to either imported from external file/service
- * or reset back to the original
- * */
-
-const initialState = [
-  {
-    id: 1,
-    title: "cart item one",
-    price: 50,
-    description: "Desc for cart item one"
-  },
-  {
-    id: 2,
-    title: "cart item two",
-    price: 65,
-    description: "Desc for cart item two"
-  },
-  {
-    id: 3,
-    title: "cart item three",
-    price: 45,
-    description: "Desc for cart item three"
-  },
-  {
-    id: 4,
-    title: "cart item four",
-    price: 30,
-    description: "Desc for cart item four"
-  }
-]
 
 function App() {
-  const [CartItems, setCartItems] = useState(initialState)
-  // ⚡️[Improvement] Lazy initial state
-
-  const [cartStatus, setCartStatus] = useState(() => {
-    let initialObject = {}
-    initialState.forEach(product => {
-      initialObject[product.id] = {
-        quantity: 1,
-        price: product.price
-      }
-    })
-    return initialObject
-  })
-
-  // we need to store the total price for the items
-  const [totalPrice, setTotalPrice] = useState(0)
-
-  /**
-   * 💣[BUG] Can you spot it?
-   *
-   */
-
-  useEffect(() => {
-    console.log("%c[Update] App useEffect 🔁", "color: aqua")
-
-    let total = 0
-    for (const item in cartStatus) {
-      total += cartStatus[item].quantity * cartStatus[item].price
-    }
-    setTotalPrice(total)
-  }, [cartStatus, CartItems]) // I want to monitor changes in the cartStatus and ....
-
-  const handleDelete = x => {
-    setCartItems(CartItems => {
-      let newCart = [...CartItems]
-      let itemToDelete = newCart.find(item => item.id == x)
-      itemToDelete.quantity = 0
-      let indexToDelete = newCart.indexOf(itemToDelete)
-      newCart.splice(indexToDelete, 1)
-      return newCart
-    })
+  const handleminus = () => {
+    console.log("Hello")
   }
 
-  const handleQuantityChange = ({ id, quantity }) => {
-    setCartStatus(prevValue => ({
-      ...prevValue,
-      [id]: {
-        quantity,
-        price: prevValue[id].price
-      }
-    }))
-  }
-
-  //⚡️[Improvement]
-  //💡 in the map the first argument is the current object from the array
-  // and the second is the index where the object is located
-  // maybe you can improve the code
   return (
-    <div>
-      {CartItems.map((x, index) => (
-        <CartItem
-          key={CartItems[index].id}
-          id={CartItems[index].id}
-          title={CartItems[index].title}
-          description={CartItems[index].description}
-          price={CartItems[index].price}
-          //No need to create here the arrow function just pass it and let the component use it
-          //handleDelete={() => handleDelete(CartItems[index].id)} />
-          handleDelete={handleDelete}
-          handleQuantityChange={handleQuantityChange}
-          cartStatus={cartStatus}
-        />
-      ))}
-      <div>Total Price: {totalPrice} </div>
-    </div>
+    <>
+      <AppBar position="static" color="primary" className="menu-bar">
+        <Toolbar className="toolbar">
+          <MenuItem elementType="li">
+            <HomeSharpIcon fontSize="large" />
+          </MenuItem>
+
+          <Grid container direction="row-reverse">
+            <MenuItem elementType="li">
+              <ShoppingCartSharpIcon fontSize="large" />
+            </MenuItem>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+
+      <Container maxWidth="lg">
+        <Grid container spacing={6}>
+          <Grid item xs={12} sm={3}>
+            <Box boxShadow={3}>
+              <Card>
+                <Typography align="center">
+                  <CardHeader title="Labrador Retriever"></CardHeader>
+                </Typography>
+                <Typography align="center">500</Typography>
+                <CardMedia component="img" src="img/dog.jpg" title="dog" className="media-images" />
+                <CardContent> The Labrador Retriever, often abbreviated to Labrador, is a breed of retriever-gun dog from the United Kingdom that was developed from imported Canadian fishing dogs. </CardContent>
+                <Grid container direction="row" justify="space-around" alignItems="center">
+                  <Button variant="outlined" color="secondary" onClick={handleminus}>
+                    -
+                  </Button>
+                  <div> 0 </div>
+                  <Button variant="outlined" color="primary">
+                    +
+                  </Button>
+                </Grid>
+                <Grid container direction="row" justify="center" alignItems="center">
+                  <div className="total-price-area">Total Price</div>
+                </Grid>
+              </Card>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </>
   )
 }
 
