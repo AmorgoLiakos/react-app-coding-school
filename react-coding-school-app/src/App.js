@@ -25,12 +25,11 @@ function App() {
     <>
       <AppBar position="static" color="primary" className="menu-bar">
         <Toolbar className="toolbar">
-          <MenuItem elementType="li">
-            <HomeSharpIcon fontSize="large" />
-          </MenuItem>
-
-          <Grid container direction="row-reverse">
-            <MenuItem elementType="li">
+          <Grid container direction="row" justify="space-between">
+            <MenuItem>
+              <HomeSharpIcon fontSize="large" />
+            </MenuItem>
+            <MenuItem>
               <ShoppingCartSharpIcon fontSize="large" />
             </MenuItem>
           </Grid>
