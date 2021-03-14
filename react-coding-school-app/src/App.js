@@ -1,67 +1,58 @@
-import Grid from "@material-ui/core/Grid"
+import React, { useState } from "react"
 import Container from "@material-ui/core/Container"
-import Card from "@material-ui/core/Card"
-import CardMedia from "@material-ui/core/CardMedia"
-import CardHeader from "@material-ui/core/CardHeader"
-import CardContent from "@material-ui/core/CardContent"
-import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
-import Box from "@material-ui/core/Box"
-
-import AppBar from "@material-ui/core/AppBar"
-import Toolbar from "@material-ui/core/Toolbar"
-import MenuItem from "@material-ui/core/MenuItem"
-import HomeSharpIcon from "@material-ui/icons/HomeSharp"
-import ShoppingCartSharpIcon from "@material-ui/icons/ShoppingCartSharp"
+import Grid from "@material-ui/core/Grid"
+import Menu from "./Components/Menu"
+import Dog from "./Components/Dog"
 
 import "./App.css"
 
 function App() {
-  const handleminus = () => {
-    console.log("Hello")
+  const initialState = [
+    {
+      id: 1,
+      name: "Labrador Retriever",
+      price: "500",
+      description: "The Labrador Retriever, often abbreviated to Labrador, is a breed of retriever-gun dog from the United Kingdom that was developed from imported Canadian fishing dogs.",
+      imageURL: "img/labrador.jpg",
+      quantity: 0
+    },
+    {
+      id: 2,
+      name: "Husky",
+      price: "600",
+      description: "A husky is a sled dog used in the polar regions. One can differentiate huskies from other dog types by their fast pulling-style. They represent an ever-changing crossbreed of the fastest dogs[.",
+      imageURL: "img/husky.jpg",
+      quantity: 0
+    },
+    {
+      id: 3,
+      name: "German Shepherd",
+      price: "700",
+      description: "The German Shepherd (German: Deutscher Schäferhund, German pronunciation: [ˈdɔʏtʃɐ ˈʃɛːfɐˌhʊnt]) is a breed of medium to large-sized working dog that originated in Germany.",
+      imageURL: "img/sheperd.jpg",
+      quantity: 0
+    }
+  ]
+
+  const [dogs, setDogs] = useState(initialState)
+
+  const handleMinus = () => {
+    console.log("Minus")
+  }
+
+  const handlePlus = () => {
+    console.log("Plus")
   }
 
   return (
     <>
-      <AppBar position="static" color="primary" className="menu-bar">
-        <Toolbar className="toolbar">
-          <Grid container direction="row" justify="space-between">
-            <MenuItem>
-              <HomeSharpIcon fontSize="large" />
-            </MenuItem>
-            <MenuItem>
-              <ShoppingCartSharpIcon fontSize="large" />
-            </MenuItem>
-          </Grid>
-        </Toolbar>
-      </AppBar>
+      <Menu />
 
       <Container maxWidth="lg">
-        <Grid container spacing={6}>
-          <Grid item xs={12} sm={3}>
-            <Box boxShadow={3}>
-              <Card>
-                <Typography component="div" align="center">
-                  <CardHeader title="Labrador Retriever"></CardHeader>
-                </Typography>
-                <Typography align="center">500</Typography>
-                <CardMedia component="img" src="img/dog.jpg" title="dog" className="media-images" />
-                <CardContent> The Labrador Retriever, often abbreviated to Labrador, is a breed of retriever-gun dog from the United Kingdom that was developed from imported Canadian fishing dogs. </CardContent>
-                <Grid container direction="row" justify="space-around" alignItems="center">
-                  <Button variant="outlined" color="secondary" onClick={handleminus}>
-                    -
-                  </Button>
-                  <div> 0 </div>
-                  <Button variant="outlined" color="primary">
-                    +
-                  </Button>
-                </Grid>
-                <Grid container direction="row" justify="center" alignItems="center">
-                  <div className="total-price-area">Total Price</div>
-                </Grid>
-              </Card>
-            </Box>
-          </Grid>
+        <Grid container spacing={3}>
+          {dogs.map((dog, index) => (
+            <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={handleMinus} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={handlePlus} />
+          ))}
         </Grid>
       </Container>
     </>
