@@ -9,6 +9,8 @@ import CardContent from "@material-ui/core/CardContent"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
+import IconButton from "@material-ui/core/IconButton"
+import AddShoppingCartIcon from "@material-ui/icons/AddShoppingCart"
 
 const Dog = props => {
   return (
@@ -32,6 +34,14 @@ const Dog = props => {
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
             <div className="total-price-area">Total Price for this Dog only</div>
+          </Grid>
+          <Grid container direction="row" justify="center" alignItems="center">
+            <IconButton color="primary" aria-label="add to shopping cart">
+              <AddShoppingCartIcon />
+              <Typography component="div" align="center">
+                Add to cart
+              </Typography>
+            </IconButton>
           </Grid>
         </Card>
       </Box>

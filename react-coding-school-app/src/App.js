@@ -40,8 +40,8 @@ function App() {
     console.log("Minus")
   }
 
-  const handlePlus = () => {
-    console.log("Plus")
+  const handlePlus = index => {
+    console.log(index)
   }
 
   return (
@@ -51,7 +51,7 @@ function App() {
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           {dogs.map((dog, index) => (
-            <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={handleMinus} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={handlePlus} />
+            <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={handleMinus} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} />
           ))}
         </Grid>
       </Container>
