@@ -36,12 +36,26 @@ function App() {
 
   const [dogs, setDogs] = useState(initialState)
 
-  const handleMinus = () => {
-    console.log("Minus")
+  const handleMinus = index => {
+    let prevDogs = [...dogs]
+    let dogToChangeQuantity = { ...prevDogs[index] }
+
+    dogToChangeQuantity.quantity = dogToChangeQuantity.quantity - 1
+
+    prevDogs[index] = dogToChangeQuantity
+
+    setDogs(prevDogs)
   }
 
   const handlePlus = index => {
-    console.log(index)
+    let prevDogs = [...dogs]
+    let dogToChangeQuantity = { ...prevDogs[index] }
+
+    dogToChangeQuantity.quantity = dogToChangeQuantity.quantity + 1
+
+    prevDogs[index] = dogToChangeQuantity
+
+    setDogs(prevDogs)
   }
 
   return (
@@ -51,7 +65,7 @@ function App() {
       <Container maxWidth="lg">
         <Grid container spacing={3}>
           {dogs.map((dog, index) => (
-            <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={handleMinus} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} />
+            <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={() => handleMinus(index)} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} />
           ))}
         </Grid>
       </Container>
