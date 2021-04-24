@@ -24,7 +24,7 @@ const Dog = props => {
           <CardMedia component="img" src={props.url} title="dog" className="media-images" />
           <CardContent> {props.description} </CardContent>
           <Grid container direction="row" justify="space-around" alignItems="center">
-            <Button variant="outlined" color="secondary" onClick={props.handleMinus}>
+            <Button variant="outlined" color="secondary" onClick={props.handleMinus} disabled={props.quantity == 0}>
               -
             </Button>
             <div> {props.quantity} </div>
@@ -33,7 +33,7 @@ const Dog = props => {
             </Button>
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
-            <div className="total-price-area">Total Price for this Dog only</div>
+            <div className="total-price-area">{props.quantity * props.price} &hearts; </div>
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
             <IconButton color="primary" aria-label="add to shopping cart">

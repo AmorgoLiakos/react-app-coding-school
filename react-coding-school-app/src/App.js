@@ -41,7 +41,6 @@ function App() {
     let dogToChangeQuantity = { ...prevDogs[index] }
 
     dogToChangeQuantity.quantity = dogToChangeQuantity.quantity - 1
-
     prevDogs[index] = dogToChangeQuantity
 
     setDogs(prevDogs)
@@ -52,7 +51,6 @@ function App() {
     let dogToChangeQuantity = { ...prevDogs[index] }
 
     dogToChangeQuantity.quantity = dogToChangeQuantity.quantity + 1
-
     prevDogs[index] = dogToChangeQuantity
 
     setDogs(prevDogs)
