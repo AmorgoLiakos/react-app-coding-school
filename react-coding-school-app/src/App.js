@@ -1,8 +1,10 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import Menu from "./Components/Menu"
 import Dog from "./Components/Dog"
+
+import TotalPriceContext from "./TotalPriceContext"
 
 import "./App.css"
 
@@ -56,8 +58,18 @@ function App() {
     setDogs(prevDogs)
   }
 
+  const [totalPrice, setTotalPrice] = useState(0)
+
+  useEffect(() => {
+    let sum = 0
+    for (let i = 0; i < dogs.length; i++) {
+      sum = sum + dogs[i].quantity * dogs[i].price
+    }
+    setTotalPrice(sum)
+  }, [dogs])
+
   return (
-    <>
+    <TotalPriceContext.Provider value={totalPrice}>
       <Menu />
 
       <Container maxWidth="lg">
@@ -67,7 +79,7 @@ function App() {
           ))}
         </Grid>
       </Container>
-    </>
+    </TotalPriceContext.Provider>
   )
 }
 
