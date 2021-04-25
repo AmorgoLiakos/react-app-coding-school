@@ -3,8 +3,10 @@ import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import Menu from "./Components/Menu"
 import Dog from "./Components/Dog"
+import CartPage from "./Components/CartPage"
 
 import TotalPriceContext from "./TotalPriceContext"
+import CartItemsContext from "./CartItemsContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import "./App.css"
@@ -59,6 +61,16 @@ function App() {
     setDogs(prevDogs)
   }
 
+  const [CartItems, setCartItems] = useState([])
+
+  const AddToCart = x => {
+    let newCart = [...CartItems]
+    let newItem = dogs.find(dog => dog.id === x)
+
+    newCart.push(newItem)
+    setCartItems(newCart)
+  }
+
   const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
@@ -71,23 +83,23 @@ function App() {
 
   return (
     <TotalPriceContext.Provider value={totalPrice}>
-      <Router>
-        <Menu />
-        <Switch>
-          <Route path="/" exact>
-            <Container maxWidth="lg">
-              <Grid container spacing={3}>
-                {dogs.map((dog, index) => (
-                  <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={() => handleMinus(index)} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} />
-                ))}
-              </Grid>
-            </Container>
-          </Route>
-          <Route path="/cart">
-            <h3>Cart Page</h3>
-          </Route>
-        </Switch>
-      </Router>
+      <CartItemsContext.Provider value={CartItems}>
+        <Router>
+          <Menu />
+          <Switch>
+            <Route path="/" exact>
+              <Container maxWidth="lg">
+                <Grid container spacing={3}>
+                  {dogs.map((dog, index) => (
+                    <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={() => handleMinus(index)} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} addToCart={() => AddToCart(dogs[index].id)} />
+                  ))}
+                </Grid>
+              </Container>
+            </Route>
+            <Route path="/cart" component={CartPage} />
+          </Switch>
+        </Router>
+      </CartItemsContext.Provider>
     </TotalPriceContext.Provider>
   )
 }

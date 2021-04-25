@@ -36,7 +36,7 @@ const Dog = props => {
             <div className="total-price-area">{props.quantity * props.price} &hearts; </div>
           </Grid>
           <Grid container direction="row" justify="center" alignItems="center">
-            <IconButton color="primary" aria-label="add to shopping cart">
+            <IconButton color="primary" disabled={props.quantity == 0} onClick={props.addToCart}>
               <AddShoppingCartIcon />
               <Typography component="div" align="center">
                 Add to cart
