@@ -15,3 +15,12 @@
 .total-price-area {
   margin: 5% auto;
 }
+
+.total-price-area-menu:hover {
+  cursor: default;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}

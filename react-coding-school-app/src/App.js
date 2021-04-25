@@ -5,6 +5,7 @@ import Menu from "./Components/Menu"
 import Dog from "./Components/Dog"
 
 import TotalPriceContext from "./TotalPriceContext"
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import "./App.css"
 
@@ -70,15 +71,23 @@ function App() {
 
   return (
     <TotalPriceContext.Provider value={totalPrice}>
-      <Menu />
-
-      <Container maxWidth="lg">
-        <Grid container spacing={3}>
-          {dogs.map((dog, index) => (
-            <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={() => handleMinus(index)} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} />
-          ))}
-        </Grid>
-      </Container>
+      <Router>
+        <Menu />
+        <Switch>
+          <Route path="/" exact>
+            <Container maxWidth="lg">
+              <Grid container spacing={3}>
+                {dogs.map((dog, index) => (
+                  <Dog name={dogs[index].name} url={dogs[index].imageURL} price={dogs[index].price} description={dogs[index].description} handleMinus={() => handleMinus(index)} key={dogs[index].id} quantity={dogs[index].quantity} handlePlus={() => handlePlus(index)} />
+                ))}
+              </Grid>
+            </Container>
+          </Route>
+          <Route path="/cart">
+            <h3>Cart Page</h3>
+          </Route>
+        </Switch>
+      </Router>
     </TotalPriceContext.Provider>
   )
 }
