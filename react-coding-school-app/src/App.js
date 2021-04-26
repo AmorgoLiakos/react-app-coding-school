@@ -15,7 +15,7 @@ function App() {
   const initialState = [
     {
       id: 1,
-      name: "Labrador Retriever",
+      name: "Labrador Retriever!!",
       price: "500",
       description: "The Labrador Retriever, often abbreviated to Labrador, is a breed of retriever-gun dog from the United Kingdom that was developed from imported Canadian fishing dogs.",
       imageURL: "img/labrador.jpg",
