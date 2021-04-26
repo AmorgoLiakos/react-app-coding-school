@@ -12,6 +12,10 @@
   margin: 0 auto;
 }
 
+.media-images-cart-item {
+  padding: 3%;
+}
+
 .total-price-area {
   margin: 5% auto;
 }

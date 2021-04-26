@@ -82,8 +82,8 @@ function App() {
   }, [dogs])
 
   return (
-    <TotalPriceContext.Provider value={totalPrice}>
-      <CartItemsContext.Provider value={CartItems}>
+    <TotalPriceContext.Provider value={[totalPrice, setTotalPrice]}>
+      <CartItemsContext.Provider value={[CartItems, setCartItems]}>
         <Router>
           <Menu />
           <Switch>
