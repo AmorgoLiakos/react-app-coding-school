@@ -42,13 +42,14 @@ function App() {
   const [dogs, setDogs] = useState(initialState)
 
   const handleMinus = index => {
-    let prevDogs = [...dogs]
-    let dogToChangeQuantity = { ...prevDogs[index] }
+    setDogs(prevDogs => {
+      let newDogs = [...prevDogs]
+      let dogToChangeQuantity = { ...newDogs[index] }
+      dogToChangeQuantity.quantity = dogToChangeQuantity.quantity - 1
+      newDogs[index] = dogToChangeQuantity
 
-    dogToChangeQuantity.quantity = dogToChangeQuantity.quantity - 1
-    prevDogs[index] = dogToChangeQuantity
-
-    setDogs(prevDogs)
+      return newDogs
+    })
   }
 
   const handlePlus = index => {
