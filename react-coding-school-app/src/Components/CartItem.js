@@ -28,6 +28,9 @@ const Item = props => {
           <Button variant="outlined" color="primary" onClick={props.handleCartPlus}>
             +
           </Button>
+          <Button variant="contained" color="secondary" onClick={props.handleDeleteCartItem} disabled={props.quantity != 0}>
+            Delete
+          </Button>
         </Box>
       </Grid>
     </>

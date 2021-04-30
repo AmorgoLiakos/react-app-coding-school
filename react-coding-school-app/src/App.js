@@ -10,6 +10,7 @@ import CartItemsContext from "./CartItemsContext"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
 
 import "./App.css"
+import Item from "./Components/CartItem"
 
 function App() {
   const initialState = [
@@ -76,17 +77,17 @@ function App() {
 
   useEffect(() => {
     let sum = 0
-    for (let i = 0; i < dogs.length; i++) {
-      sum = sum + dogs[i].quantity * dogs[i].price
+    for (let i = 0; i < CartItems.length; i++) {
+      sum = sum + CartItems[i].quantity * CartItems[i].price
     }
     setTotalPrice(sum)
-  }, [dogs])
+  }, [CartItems])
 
   return (
     <TotalPriceContext.Provider value={[totalPrice, setTotalPrice]}>
       <CartItemsContext.Provider value={[CartItems, setCartItems]}>
         <Router>
-          <Menu />
+          <Menu TotalPrice={totalPrice} />
           <Switch>
             <Route path="/" exact>
               <Container maxWidth="lg">

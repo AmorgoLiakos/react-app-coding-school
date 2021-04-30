@@ -6,11 +6,10 @@ import MenuItem from "@material-ui/core/MenuItem"
 import HomeSharpIcon from "@material-ui/icons/HomeSharp"
 import ShoppingCartSharpIcon from "@material-ui/icons/ShoppingCartSharp"
 import Grid from "@material-ui/core/Grid"
-import TotalPriceContext from "../TotalPriceContext"
+import Typography from "@material-ui/core/Typography"
 import { Link } from "react-router-dom"
 
-const Menu = () => {
-  const TotalPrice = useContext(TotalPriceContext)
+const Menu = props => {
   return (
     <AppBar position="static" color="primary" className="menu-bar">
       <Toolbar className="toolbar">
@@ -21,7 +20,7 @@ const Menu = () => {
             </Link>
           </MenuItem>
           <MenuItem className="total-price-area-menu">
-            <h3> Total Price = {TotalPrice} &hearts;</h3>
+            <Typography variant="h4">Total Price at Cart: {props.TotalPrice}</Typography>
           </MenuItem>
           <MenuItem>
             <Link to="/cart">
