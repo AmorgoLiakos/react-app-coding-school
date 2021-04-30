@@ -67,20 +67,24 @@ function App() {
   const [CartItems, setCartItems] = useState([])
 
   const AddToCart = x => {
-    let newCart = [...CartItems]
-    let newItem = dogs.find(dog => dog.id === x)
+    setCartItems(prevCartItems => {
+      let newCart = [...prevCartItems]
+      let newItem = dogs.find(dog => dog.id === x)
+      let doubleItem = newCart.find(x => x.id === newItem.id)
 
-    let doubleItem = newCart.find(x => x.id === newItem.id)
+      if (doubleItem) {
+        let doubleItemIndex = newCart.indexOf(doubleItem)
 
-    if (doubleItem) {
-      let doubleItemIndex = newCart.indexOf(doubleItem)
-      doubleItem.quantity = doubleItem.quantity + newItem.quantity
-      newCart[doubleItemIndex] = doubleItem
-      setCartItems(newCart)
-    } else {
-      newCart.push(newItem)
-      setCartItems(newCart)
-    }
+        doubleItem.quantity = doubleItem.quantity + newItem.quantity
+        newCart[doubleItemIndex] = doubleItem
+
+        return newCart
+      } else {
+        newCart.push(newItem)
+
+        return newCart
+      }
+    })
   }
 
   const [totalPrice, setTotalPrice] = useState(0)
