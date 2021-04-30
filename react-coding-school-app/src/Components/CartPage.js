@@ -31,18 +31,17 @@ const CartPage = () => {
 
   useEffect(() => {
     let sum = 0
-    for (let i = 0; i < CartItemsTotal.length; i++) {
-      sum = sum + CartItemsTotal[i].quantity * CartItemsTotal[i].price
-    }
+    CartItemsTotal.forEach(x => (sum = sum + x.quantity * x.price))
     setTotalPrice(sum)
   }, [CartItemsTotal])
 
   const handleDeleteCartItem = index => {
-    let prevCartDogs = [...CartItemsTotal]
+    setCartItemsTotal(prevCartDogs => {
+      let prevCartDogsItems = [...prevCartDogs]
 
-    prevCartDogs.splice(index, 1)
-
-    setCartItemsTotal(prevCartDogs)
+      prevCartDogsItems.splice(index, 1)
+      return prevCartDogsItems
+    })
   }
 
   return (

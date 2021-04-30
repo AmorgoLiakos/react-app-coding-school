@@ -54,13 +54,14 @@ function App() {
   }
 
   const handlePlus = index => {
-    let prevDogs = [...dogs]
-    let dogToChangeQuantity = { ...prevDogs[index] }
+    setDogs(prevDogs => {
+      let newDogs = [...prevDogs]
+      let dogToChangeQuantity = { ...newDogs[index] }
+      dogToChangeQuantity.quantity = dogToChangeQuantity.quantity + 1
+      newDogs[index] = dogToChangeQuantity
 
-    dogToChangeQuantity.quantity = dogToChangeQuantity.quantity + 1
-    prevDogs[index] = dogToChangeQuantity
-
-    setDogs(prevDogs)
+      return newDogs
+    })
   }
 
   const [CartItems, setCartItems] = useState([])
@@ -69,8 +70,17 @@ function App() {
     let newCart = [...CartItems]
     let newItem = dogs.find(dog => dog.id === x)
 
-    newCart.push(newItem)
-    setCartItems(newCart)
+    let doubleItem = newCart.find(x => x.id === newItem.id)
+
+    if (doubleItem) {
+      let doubleItemIndex = newCart.indexOf(doubleItem)
+      doubleItem.quantity = doubleItem.quantity + newItem.quantity
+      newCart[doubleItemIndex] = doubleItem
+      setCartItems(newCart)
+    } else {
+      newCart.push(newItem)
+      setCartItems(newCart)
+    }
   }
 
   const [totalPrice, setTotalPrice] = useState(0)
