@@ -35,19 +35,16 @@ const CartPage = () => {
     setTotalPrice(sum)
   }, [CartItemsTotal])
 
-  const handleDeleteCartItem = index => {
+  const handleDeleteCartItem = id => {
     setCartItemsTotal(prevCartDogs => {
-      let prevCartDogsItems = [...prevCartDogs]
-
-      prevCartDogsItems.splice(index, 1)
-      return prevCartDogsItems
+      return prevCartDogs.filter(x => x.id != id)
     })
   }
 
   return (
     <Container>
       {CartItemsTotal.map((item, index) => (
-        <CartItem key={item.id} url={item.imageURL} quantity={item.quantity} price={item.price} handleCartMinus={() => handleCartMinus(index)} handleCartPlus={() => handleCartPlus(index)} handleDeleteCartItem={() => handleDeleteCartItem(index)} />
+        <CartItem key={item.id} url={item.imageURL} quantity={item.quantity} price={item.price} handleCartMinus={() => handleCartMinus(index)} handleCartPlus={() => handleCartPlus(index)} handleDeleteCartItem={() => handleDeleteCartItem(item.id)} />
       ))}
     </Container>
   )

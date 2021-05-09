@@ -1,0 +1,52 @@
+From 9da2384d3052ad679b41015b4af8036a2f66d0a6 Mon Sep 17 00:00:00 2001
+From: Hag <enjoy@life-keep.coding>
+Date: Sun, 9 May 2021 16:31:38 +0300
+Subject: [PATCH] codereview
+
+---
+ react-coding-school-app/src/App.js | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/react-coding-school-app/src/App.js b/react-coding-school-app/src/App.js
+index e5978bf..c574ef3 100644
+--- a/react-coding-school-app/src/App.js
++++ b/react-coding-school-app/src/App.js
+@@ -12,6 +12,8 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom"
+ import "./App.css"
+ 
+ function App() {
++
++  // This could be move outside of the function as normally this should come from an API endpoint
+   const initialState = [
+     {
+       id: 1,
+@@ -65,6 +67,7 @@ function App() {
+ 
+   const [CartItems, setCartItems] = useState([])
+ 
++  // A hashmap can help you to easily make search & modifications
+   const AddToCart = x => {
+     setCartItems(prevCartItems => {
+       let newCart = [...prevCartItems]
+@@ -79,7 +82,8 @@ function App() {
+ 
+         return newCart
+       } else {
+-        newCart.push(newItem)
++        //The newItem is still a reference of the initial object of dogs array
++        newCart.push({...newItem})
+ 
+         return newCart
+       }
+@@ -96,6 +100,8 @@ function App() {
+     setTotalPrice(sum)
+   }, [CartItems])
+ 
++  // handleMinus & handlePlus and quantity could be hidden inside the Dog component
++  // So the component handle the quantity state itself 
+   return (
+     <TotalPriceContext.Provider value={[totalPrice, setTotalPrice]}>
+       <CartItemsContext.Provider value={[CartItems, setCartItems]}>
+-- 
+2.23.0.windows.1
+
