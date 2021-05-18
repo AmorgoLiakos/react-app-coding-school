@@ -81,7 +81,6 @@ function App() {
 
         return newCart
       } else {
-        newCart.push(newItem)
         newCart.push({ ...newItem })
         return newCart
       }
